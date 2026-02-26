@@ -1,12 +1,17 @@
 from myLib.connect import connect
 from psycopg.rows import dict_row
 
-def select():
+def select(asDict=True):
     conn=connect()
+
+    if asDict:
+
+    else:
+
     cur=conn.cursor(row_factory=dict_row)
     cons="""
         SELECT 
-            description, area,st_astext(geom)
+            id,description, area,st_astext(geom)
         FROM 
             d.buildings 
         WHERE

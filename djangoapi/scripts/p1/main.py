@@ -20,15 +20,17 @@ def main():
         print("Error: The available table names are buildings, trees, water")
         sys.exit(0)
     
-    if functionName not in ["insert", "select", "update", "delete"]:
-        print("Error the available function names are insert, select, delete or update")
+    if functionName not in ["insert", "select", "selectAsDict", "update", "delete"]:
+        print("Error the available function names are insert, select, selectAsDict, update or delete")
         sys.exit(0)
 
     if tableName == "buildings":
         if functionName=="insert":
             insert_building()
         elif functionName=="select":
-            select_building()
+            select_building(asDict=False)
+        elif functionName=="selectAsDict":
+            select_building(asDict=True)
         elif functionName=="update":
             update_building()
         elif functionName=="delete":

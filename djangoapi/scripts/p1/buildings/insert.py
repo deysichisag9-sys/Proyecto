@@ -16,10 +16,10 @@ def insert():
                 ['My first building',
                  100,
                  'POLYGON((0 0, 100 0, 100 100, 0 100, 0 0))',
-                 EPSG_CODE
+                 EPSG_CODE 
                  ])
     conn.commit()
-    l=cur.fetchall()
+    l=cur.fetchall() #se almacena en L en lista 
     #print(cur.fetchall()[0][0]) <-- ERROR. YOU ONLY CAN FECTH THE RESULTS ONCE
     print(l)
     print(l[0][0])
