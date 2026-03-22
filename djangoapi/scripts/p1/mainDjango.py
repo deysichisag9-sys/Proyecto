@@ -1,16 +1,28 @@
+"""
+This files can be executed in the following way:
+
+    python manage.py runscript script_without_extension
+
+The scripts must be in the folder scripts
+
+You can pass parameters to the scritp in the following way:+
+
+    python manage.py runscript mainDjango --script-args nombreTabla funcion
+
+All parameters are received in string format
+
+"""
 import sys
+from scripts.p1.buildingsDjangoModels.insertDjango import insert3
 
-from buildings.insert import insert as insert_building
-from buildings.select import select as select_building
-from buildings.update import update as update_building
-from buildings.delete import delete as delete_building
+def run(*args):
+    """python manage.py runscript scripts.p1.mainDjango --script-args tabla operacion"""
+    print(__file__)
+    print("Hello script")
 
-def main():
-    # sys.argv[0] es siempre el nombre del archivo (main.py)
-    # Por eso verificamos que haya al menos 3 elementos (nombre + p1 + p2)
-    if len(sys.argv) == 3:
-        tableName = sys.argv[1]
-        functionName = sys.argv[2]     
+    if len(args) == 2:
+        tableName = args[0]
+        functionName = args[1]     
     else:
         print("Error: You mus give two parameters tableName and functionName to execute the addecuate function.")
         sys.exit(0)
@@ -26,15 +38,21 @@ def main():
 
     if tableName == "buildings":
         if functionName=="insert":
-            insert_building()
+            d_of_values= {
+                'description':'Edificio 1', 
+                'height':100, 
+                'area':2000,
+                'geom':'POLYGON((0 0, 10 0, 10 10, 0 11, 0 0))'
+            }
+            print(insert3(d_of_values))
         elif functionName=="select":
-            select_building()
+            pass
         elif functionName=="selectAsDict":
-            select_building(asDict=True)
+            pass
         elif functionName=="update":
-            update_building()
+            pass
         elif functionName=="delete":
-            delete_building()
+            pass
     elif tableName=="trees":
         if functionName=="insert":
             pass
@@ -47,4 +65,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
