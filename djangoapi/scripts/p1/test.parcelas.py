@@ -1,7 +1,7 @@
-from parcelas.parcelasOOP import ParcelasOOP
+from parcelas.parcelas import Parcelas
 
 # 1. Instanciamos la clase
-parcela = ParcelasOOP()
+parcela = Parcelas()
 
 # 2. Creamos el diccionario con los datos de una parcela inventada (un cuadrado simple)
 datos_nueva_parcela = {
@@ -24,3 +24,4 @@ if resultado_insert['ok']:
     print("\n--- INTENTANDO SELECCIONAR (SELECT) ---")
     datos_buscar = {'id': nuevo_id}
     print(parcela.selectAsDicts(datos_buscar))
+    
