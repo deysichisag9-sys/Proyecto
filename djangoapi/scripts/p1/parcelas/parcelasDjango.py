@@ -44,19 +44,19 @@ class ParcelasDjango:
         if not g.valid:
             return {'ok': False, 'message': 'Invalid geometry', 'data': None}
             
-        # Comprobamos intersecciones, pero ignoramos la propia parcela que estamos editando
+        # Comprobar intenserccio (pero no se toma en cuenta la parcela actual)
         query_intersect = "SELECT id FROM d.parcelas WHERE ST_Intersects(geom, ST_GeomFromText(%s, %s)) AND id != %s"
         cur.execute(query_intersect, [snapped_wkt_geometry, p1Settings.EPSG_CODE, d['id']])
         if len(cur.fetchall()) > 0:
             return {'ok': False, 'message': 'El poligono choca con otra parcela', 'data': None}
 
-        # Buscamos la parcela con Django
+        # para buscar la parcela en Django
         f = Parcelas.objects.filter(id=d['id'])
         l = list(f)
         if len(l) == 0:
             return {'ok': False, 'message': f"No data found with id {d['id']}", 'data': None}
         
-        # Actualizamos y guardamos
+        # Actualizar y guardr
         b = l[0]
         b.geom = g
         b.nombre = d['nombre']
@@ -69,7 +69,7 @@ class ParcelasDjango:
         return {'ok': True, 'message': 'Data updated', 'data': [{'rows_updated': 1}]}
 
     def delete(self, d: dict):
-        # Buscamos y borramos con una sola orden de Django
+        # Buscar y borrar (con una sola orden)
         f = Parcelas.objects.filter(id=d['id'])
         l = list(f)
         if len(l) == 0:
@@ -86,8 +86,9 @@ class ParcelasDjango:
             return {'ok': False, 'message': 'No data found', 'data': None}
             
         b = l[0]
-        # model_to_dict convierte automáticamente el objeto a un diccionario
+        # el model_to_dict convierte  el objeto a un diccionario (ojito)
         dic = model_to_dict(b)
-        # Convertimos la geometría a texto legible (WKT) igual que hace tu profesor
+        # Convertimos la geometría a texto 
         dic['geom'] = b.geom.wkt 
         return {'ok': True, 'message': 'Data retrieved', 'data': [dic]}
+    

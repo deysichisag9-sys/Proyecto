@@ -6,19 +6,19 @@ class Arboles:
     def insert(self, d: dict):
         db = Db()
         
-        # 1. Redondear coordenadas a 0.0001
+        # Redondeo de laas  coord a 0.0001
         db.query("SELECT ST_AsText(ST_SnapToGrid(ST_GeomFromText(%s, %s), 0.0001)) AS geom_snapped", 
                  [d['geom'], p1Settings.EPSG_CODE])
         geom_snapped = db.result[0]['geom_snapped']
         
-        # 2. Validar que el punto esté bien (ST_IsValid)
+        # Validar que el punto este bien (ST_IsValid)
         db.query("SELECT ST_IsValid(ST_GeomFromText(%s, %s)) AS is_valid", 
                  [geom_snapped, p1Settings.EPSG_CODE])
         if not db.result[0]['is_valid']:
             db.disconnect()
             return {'ok': False, 'message': 'Geometria de punto invalida', 'data': None}
             
-        # 3. REGLA DE ORO: Comprobar que el árbol esté DENTRO de alguna parcela existente
+        # Comprobar que el (arbol) este dentro de alguna parcela que exista
         db.query("""
             SELECT id FROM d.parcelas 
             WHERE ST_Within(ST_GeomFromText(%s, %s), geom)
@@ -28,7 +28,7 @@ class Arboles:
             db.disconnect()
             return {'ok': False, 'message': 'El arbol rechazado: NO esta dentro de ninguna parcela', 'data': None}
             
-        # 4. Insertar los datos si pasó la prueba
+        # 4. Insertar los que si funciona 
         cons = """
             INSERT INTO d.arboles (especie, diametro_cm, altura_m, volumen_m3, calidad_madera, geom)
             VALUES (%s, %s, %s, %s, %s, ST_GeomFromText(%s, %s))
@@ -37,10 +37,10 @@ class Arboles:
         values = [d['especie'], d['diametro_cm'], d['altura_m'], d['volumen_m3'], d['calidad_madera'], geom_snapped, p1Settings.EPSG_CODE]
         db.query(cons, values)
         
-        new_id = db.result[0]['id']
+        new_id = db.result[0]['id'] #nuevo id 
         db.disconnect()
         return {'ok': True, 'message': 'Arbol insertado correctamente', 'data': [{'id': new_id}]}
-
+#actualizar
     def update(self, d: dict):
         db = Db()
         db.query("SELECT ST_AsText(ST_SnapToGrid(ST_GeomFromText(%s, %s), 0.0001)) AS geom_snapped", [d['geom'], p1Settings.EPSG_CODE])
@@ -51,7 +51,7 @@ class Arboles:
             db.disconnect()
             return {'ok': False, 'message': 'Geometria de punto invalida', 'data': None}
             
-        # Al actualizar, también debe seguir dentro de una parcela
+        # Al actualizar, también debe seguir dentro de una parcela 
         db.query("SELECT id FROM d.parcelas WHERE ST_Within(ST_GeomFromText(%s, %s), geom)", [geom_snapped, p1Settings.EPSG_CODE])
         if len(db.result) == 0:
             db.disconnect()
