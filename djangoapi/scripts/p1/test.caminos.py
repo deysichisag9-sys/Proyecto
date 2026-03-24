@@ -1,4 +1,4 @@
-from caminos.caminos import Caminos
+from caminos.camino import Caminos
 
 camino = Caminos()
 

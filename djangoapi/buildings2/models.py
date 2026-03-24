@@ -18,3 +18,42 @@ class Buildings(models.Model):
                 self.perimeter = self.geom.length
             
             super().save(*args, **kwargs)
+
+ #Moleds Forestry 
+class Parcelas(models.Model):
+    nombre = models.CharField(max_length=100)
+    propietario = models.CharField(max_length=100)
+    area_ha = models.FloatField()
+    tipo_bosque = models.CharField(max_length=100)
+    estado_legal = models.CharField(max_length=50)
+    # Usamos gis_models como lo hace el profesor
+    geom = gis_models.PolygonField(srid=25830) 
+
+    class Meta:
+        db_table = '"d"."parcelas"' # Se señala  a la tabla en el esquema d
+        # es para djgano no cree la tabla, por que ya existe. 
+        managed = False 
+
+class Arboles(models.Model):
+    especie = models.CharField(max_length=100)
+    diametro_cm = models.FloatField()
+    altura_m = models.FloatField()
+    volumen_m3 = models.FloatField()
+    calidad_madera = models.CharField(max_length=50)
+    geom = gis_models.PointField(srid=25830)
+
+    class Meta:
+        db_table = '"d"."arboles"'
+        managed = False
+
+class Caminos(models.Model):
+    nombre = models.CharField(max_length=100)
+    tipo_superficie = models.CharField(max_length=50)
+    ancho_m = models.FloatField()
+    estado_mantenimiento = models.CharField(max_length=50)
+    pendiente_max_pct = models.FloatField()
+    geom = gis_models.LineStringField(srid=25830)
+
+    class Meta:
+        db_table = '"d"."caminos"'
+        managed = False         
