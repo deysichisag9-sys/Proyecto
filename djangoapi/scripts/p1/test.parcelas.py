@@ -1,7 +1,7 @@
-from parcelas.parcelas import Parcelas
+from parcelas.parcelas import  ParcelasOOP
 
 # 1. Instanciamos la clase
-parcela = Parcelas()
+parcela = ParcelasOOP()
 
 # 2. Creamos el diccionario con los datos de una parcela inventada (un cuadrado simple)
 datos_nueva_parcela = {
