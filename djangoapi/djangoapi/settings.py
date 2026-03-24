@@ -134,7 +134,7 @@ if MODE_TEST:
     DATABASE_NAME = 'test_'+ os.getenv('POSTGRES_DB')
     print(f'Base de datos en modo test: {DATABASE_NAME}')
 else:
-    DATABASE_NAME = os.getenv('POSTGRES_DB')
+    DATABASE_NAME = 'desarrolloweb'
 
 DATABASES = {
     'default': {
@@ -147,7 +147,7 @@ DATABASES = {
         'HOST': os.getenv('POSTGRES_HOST'),
         'PORT': os.getenv('POSTGRES_PORT'),
         'OPTIONS': {
-            'options': '-c search_path=public',
+            'options': '-c search_path=public,d',
         }
     }
 }
