@@ -3,15 +3,41 @@ from caminos.camino import Caminos
 camino = Caminos()
 
 datos_nuevo_camino = {
-    'nombre': 'Ruta Principal de Extraccion',
-    'tipo_superficie': 'Tierra compactada',
-    'ancho_m': 4.5,
+    'nombre': 'Via principal',
+    'tipo_superficie': 'Tierra ',
+    'ancho_m': 5.5,
     'estado_mantenimiento': 'Bueno',
-    'pendiente_max_pct': 12.5,
-    'longitud': 850.2,
-    'geom': 'LINESTRING(-5 5, 5 5, 15 5)' # línea que cruza el mapa
+    'pendiente_max_pct': 12.0,
+    'longitud': 1020.2,
+    'geom': 'LINESTRING(1000 1000, 1500 1500, 2000 2000)' # línea que cruza el mapa
 }
 
-print("INSERT CAMINO ")
-resultado = camino.insert(datos_nuevo_camino)
-print(resultado)
+
+resultado_insert = camino.insert(datos_nuevo_camino)
+print(resultado_insert)
+
+if resultado_insert['ok']:
+    nuevo_id = resultado_insert['data'][0]['id']
+    
+    #  SELECCIONAR
+    print("\n- LEYENDO CAMINO -")
+    print(camino.selectAsDicts({'id': nuevo_id}))
+    
+    #  ACTUALIZAR
+    print("\n-ACTUALIZANDO CAMINO -")
+    datos_actualizar = {
+        'id': nuevo_id,
+        'nombre': 'Vía Principal Maderera (Ampliación)',
+        'tipo_superficie': 'Ripio', 
+        'ancho_m': 8.0,             
+        'estado_mantenimiento': 'Excelente',
+        'pendiente_max_pct': 12.0,
+        'longitud': 1500.5,
+        'geom': 'LINESTRING(1000 1000, 1500 1500, 2000 2000)'
+    }
+    print(camino.update(datos_actualizar))
+    
+    # BORRAR
+    print("\n-DELETE-")
+    print(camino.delete({'id': nuevo_id}))
+    
