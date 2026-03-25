@@ -6,19 +6,19 @@ class Caminos:
     def insert(self, d: dict):
         db = Db()
         
-        # 1. Redondear coordenadas a 0.0001
+        # Redondear coord
         db.query("SELECT ST_AsText(ST_SnapToGrid(ST_GeomFromText(%s, %s), 0.0001)) AS geom_snapped", 
                  [d['geom'], p1Settings.EPSG_CODE])
         geom_snapped = db.result[0]['geom_snapped']
         
-        # 2. Validar que la línea esté bien dibujada
+        #para ver si la linea esta bien dibujada 
         db.query("SELECT ST_IsValid(ST_GeomFromText(%s, %s)) AS is_valid", 
                  [geom_snapped, p1Settings.EPSG_CODE])
         if not db.result[0]['is_valid']:
             db.disconnect()
             return {'ok': False, 'message': 'Geometria de linea invalida', 'data': None}
             
-        # 3. Insertar los datos
+        # Insert los datos
         cons = """
             INSERT INTO d.caminos (nombre, tipo_superficie, ancho_m, estado_mantenimiento, pendiente_max_pct, geom)
             VALUES (%s, %s, %s, %s, %s, ST_GeomFromText(%s, %s))
@@ -30,7 +30,7 @@ class Caminos:
         new_id = db.result[0]['id']
         db.disconnect()
         return {'ok': True, 'message': 'Data inserted', 'data': [{'id': new_id}]}
-
+#actualizar 
     def update(self, d: dict):
         db = Db()
         db.query("SELECT ST_AsText(ST_SnapToGrid(ST_GeomFromText(%s, %s), 0.0001)) AS geom_snapped", [d['geom'], p1Settings.EPSG_CODE])
@@ -52,7 +52,7 @@ class Caminos:
         filas_actualizadas = db.result
         db.disconnect()
         return {'ok': True, 'message': 'Data updated', 'data': [{'rows_updated': filas_actualizadas}]}
-
+#elimianr 
     def delete(self, d: dict):
         db = Db()
         cons = "DELETE FROM d.caminos WHERE id = %s"

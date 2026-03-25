@@ -11,7 +11,7 @@ class Arboles:
                  [d['geom'], p1Settings.EPSG_CODE])
         geom_snapped = db.result[0]['geom_snapped']
         
-        # Validar que el punto este bien (ST_IsValid)
+        # Validar que el punto este bien  con la funcion= (ST_IsValid)
         db.query("SELECT ST_IsValid(ST_GeomFromText(%s, %s)) AS is_valid", 
                  [geom_snapped, p1Settings.EPSG_CODE])
         if not db.result[0]['is_valid']:
@@ -68,7 +68,7 @@ class Arboles:
         filas_actualizadas = db.result
         db.disconnect()
         return {'ok': True, 'message': 'Data updated', 'data': [{'rows_updated': filas_actualizadas}]}
-
+# eliminar 
     def delete(self, d: dict):
         db = Db()
         cons = "DELETE FROM d.arboles WHERE id = %s"

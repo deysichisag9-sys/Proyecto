@@ -1,9 +1,9 @@
 from parcelas.parcelas import  ParcelasOOP
 
-# 1. Instanciamos la clase
+# la clase parcela 
 parcela = ParcelasOOP()
 
-# 2. Creamos el diccionario con los datos de una parcela inventada (un cuadrado simple)
+# Creacion del diccionario 
 datos_nueva_parcela = {
     'nombre': 'Parcela Norte',
     'propietario': 'Aserradero Wilson',
@@ -13,15 +13,15 @@ datos_nueva_parcela = {
     'geom': 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))'
 }
 
-print("--- INTENTANDO INSERTAR ---")
+print("insert ")
 resultado_insert = parcela.insert(datos_nueva_parcela)
 print(resultado_insert)
 
-# Si se insertó bien, tomamos el ID nuevo y probamos buscarlo
+# si el insert funciona con siguiente paso el ID nuevo 
 if resultado_insert['ok']:
     nuevo_id = resultado_insert['data'][0]['id']
     
-    print("\n--- INTENTANDO SELECCIONAR (SELECT) ---")
+    print("\n-Intentando seleccionar -")
     datos_buscar = {'id': nuevo_id}
     print(parcela.selectAsDicts(datos_buscar))
     

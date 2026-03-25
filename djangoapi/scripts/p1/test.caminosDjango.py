@@ -2,7 +2,7 @@ import sys
 import os
 import django
 
-# Le enseñamos a Python dónde está el proyecto
+# path proyecto la ubicacion 
 sys.path.append('/usr/src/app')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoapi.settings")
 django.setup()
@@ -20,6 +20,6 @@ datos_nuevo_camino = {
     'geom': 'LINESTRING(15 5, 25 5, 35 5)' # Una línea que cruza por el mapa
 }
 
-print("--- INTENTANDO INSERTAR CAMINO CON DJANGO ---")
+print("INSERT CAMINO CON DJANGO")
 resultado = camino_django.insert(datos_nuevo_camino)
 print(resultado)

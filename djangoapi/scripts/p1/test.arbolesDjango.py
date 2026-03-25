@@ -2,7 +2,7 @@ import sys
 import os
 import django
 
-# Le enseñamos a Python dónde está el proyecto
+# para ubicar dpnde esta el proyecto 
 sys.path.append('/usr/src/app')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoapi.settings")
 django.setup()
@@ -17,9 +17,9 @@ datos_nuevo_arbol = {
     'altura_m': 20.5,
     'volumen_m3': 1.5,
     'calidad_madera': 'Alta',
-    'geom': 'POINT(25 5)' # ¡Cae justo dentro de la Parcela Este!
+    'geom': 'POINT(25 5)' # Parcela Este 
 }
 
-print("--- INTENTANDO INSERTAR ARBOL CON DJANGO ---")
+print(" Insert el Arbol con Django")
 resultado = arbol_django.insert(datos_nuevo_arbol)
 print(resultado)
