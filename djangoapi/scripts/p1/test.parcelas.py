@@ -10,6 +10,7 @@ datos_nueva_parcela = {
     'area_ha': 100.5,
     'tipo_bosque': 'Pino y Eucalipto',
     'estado_legal': 'Concesion',
+    'perimetro': 1500.5,
     'geom': 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))'
 }
 

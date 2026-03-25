@@ -20,16 +20,17 @@ class Caminos:
             
         # Insert los datos
         cons = """
-            INSERT INTO d.caminos (nombre, tipo_superficie, ancho_m, estado_mantenimiento, pendiente_max_pct, geom)
-            VALUES (%s, %s, %s, %s, %s, ST_GeomFromText(%s, %s))
+            INSERT INTO d.caminos (nombre, tipo_superficie, ancho_m, estado_mantenimiento, pendiente_max_pct, longitud, geom)
+            VALUES (%s, %s, %s, %s, %s, %s, ST_GeomFromText(%s, %s))
             RETURNING id
         """
-        values = [d['nombre'], d['tipo_superficie'], d['ancho_m'], d['estado_mantenimiento'], d['pendiente_max_pct'], geom_snapped, p1Settings.EPSG_CODE]
+        values = [d['nombre'], d['tipo_superficie'], d['ancho_m'], d['estado_mantenimiento'], d['pendiente_max_pct'], d['longitud'], geom_snapped, p1Settings.EPSG_CODE]
         db.query(cons, values)
         
         new_id = db.result[0]['id']
         db.disconnect()
         return {'ok': True, 'message': 'Data inserted', 'data': [{'id': new_id}]}
+
 #actualizar 
     def update(self, d: dict):
         db = Db()

@@ -27,11 +27,11 @@ class ParcelasOOP:
             
         # 4. Insert  de los datos
         cons = """
-            INSERT INTO d.parcelas (nombre, propietario, area_ha, tipo_bosque, estado_legal, geom)
-            VALUES (%s, %s, %s, %s, %s, ST_GeomFromText(%s, %s))
+            INSERT INTO d.parcelas (nombre, propietario, area_ha, tipo_bosque, estado_legal,perimetro, geom)
+            VALUES (%s, %s, %s, %s, %s, %s, ST_GeomFromText(%s, 25830))
             RETURNING id
         """
-        values = [d['nombre'], d['propietario'], d['area_ha'], d['tipo_bosque'], d['estado_legal'], geom_snapped, p1Settings.EPSG_CODE]
+        values = [d['nombre'], d['propietario'], d['area_ha'], d['tipo_bosque'], d['estado_legal'], d['perimetro'],geom_snapped]
         db.query(cons, values)
         
         new_id = db.result[0]['id']
@@ -60,11 +60,12 @@ class ParcelasOOP:
         # Ojito para Actualizar
         cons = """
             UPDATE d.parcelas 
-            SET nombre=%s, propietario=%s, area_ha=%s, tipo_bosque=%s, estado_legal=%s, geom=ST_GeomFromText(%s, %s)
+            SET nombre=%s, propietario=%s, area_ha=%s, tipo_bosque=%s, estado_legal=%s, perimetro=%s, geom=ST_GeomFromText(%s, %s)
             WHERE id=%s
         """
-        values = [d['nombre'], d['propietario'], d['area_ha'], d['tipo_bosque'], d['estado_legal'], geom_snapped, p1Settings.EPSG_CODE, d['id']]
+        values = [d['nombre'], d['propietario'], d['area_ha'], d['tipo_bosque'], d['estado_legal'], d['perimetro'], geom_snapped, p1Settings.EPSG_CODE, d['id']]
         db.query(cons, values)
+
         
         # Utilizacion de rows_updated (inf guardada)
         filas_actualizadas = db.result

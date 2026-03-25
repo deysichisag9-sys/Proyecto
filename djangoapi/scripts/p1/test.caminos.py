@@ -8,6 +8,7 @@ datos_nuevo_camino = {
     'ancho_m': 4.5,
     'estado_mantenimiento': 'Bueno',
     'pendiente_max_pct': 12.5,
+    'longitud': 850.2,
     'geom': 'LINESTRING(-5 5, 5 5, 15 5)' # línea que cruza el mapa
 }
 

@@ -1,7 +1,7 @@
 from django.contrib.gis.geos import GEOSGeometry
 from django.db import connection
 from django.forms.models import model_to_dict
-from buildings2.models import Arboles
+from forestal.models import Arboles
 from myLib import p1Settings
 
 class ArbolesDjango:

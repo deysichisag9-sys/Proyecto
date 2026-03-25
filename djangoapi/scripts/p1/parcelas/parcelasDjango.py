@@ -1,6 +1,6 @@
 from django.contrib.gis.geos import GEOSGeometry
 from django.db import connection
-from buildings2.models import Parcelas
+from forestal.models import Parcelas
 from myLib import p1Settings
 
 class ParcelasDjango:
