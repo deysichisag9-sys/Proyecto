@@ -1,28 +1,44 @@
-
-import os
-import django   # es importnate poner estas funciones para que funcione django 
-import sys
-
-sys.path.append('/usr/src/app')
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoapi.settings")
-django.setup()
-
-# Importar la nueva clase
 from parcelas.parcelasDjango import ParcelasDjango
 
+# Inicializamos la clase
 parcela_django = ParcelasDjango()
 
-datos_nueva_parcela = {
-    'nombre': 'Parcela Este',
-    'propietario': 'Aserradero Wilson',
-    'area_ha': 75.0,
-    'tipo_bosque': 'Eucalipto',
-    'estado_legal': 'Propio',
-    'perimetro': 1200.5,
-    'geom': 'POLYGON((20 0, 30 0, 30 10, 20 10, 20 0))' # Un polígono nuevo que no se intersect 
+# 1. INSERT
+print("--- 1. INSERTANDO CON DJANGO ---")
+datos_nueva_django = {
+    'nombre': 'Parcela Django Forestal',
+    'propietario': 'Aserradero y depósito Wilson',
+    'area_ha': 30.0,
+    'tipo_bosque': 'Mixto',
+    'estado_legal': 'Concesion',
+    'perimetro': 850.5,
+    'geom': 'POLYGON((3000 3000, 3010 3000, 3010 3010, 3000 3010, 3000 3000))'
 }
+resultado_insert_dj = parcela_django.insert(datos_nueva_django)
+print(resultado_insert_dj)
 
-print("INSERT CON DJANGO ")
-resultado = parcela_django.insert(datos_nueva_parcela)
-print(resultado)
+if resultado_insert_dj['ok']:
+    nuevo_id_dj = resultado_insert_dj['data'][0]['id']
+    
+    # 2. SELECCIONAR
+    print("\n-leyendo-")
+    print(parcela_django.selectAsDicts({'id': nuevo_id_dj}))
+    
+    # 3. ACTUALIZAR
+    print("\n-ACTUALIZANDOOOO......-")
+    datos_actualizar_dj = {
+        'id': nuevo_id_dj,
+        'nombre': 'Parcela Django ACTUALIZADA',
+        'propietario': 'Aserradero y depósito Wilson',
+        'area_ha': 35.0,
+        'tipo_bosque': 'Teca', 
+        'estado_legal': 'Concesion',
+        'perimetro': 900.0,    
+        'geom': 'POLYGON((3000 3000, 3010 3000, 3010 3010, 3000 3010, 3000 3000))'
+    }
+    print(parcela_django.update(datos_actualizar_dj))
+    
+    # 4. BORRAR
+    print("\n- ELIMINANDO- ")
+    print(parcela_django.delete({'id': nuevo_id_dj}))
+

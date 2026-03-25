@@ -1,28 +1,45 @@
-from parcelas.parcelas import  ParcelasOOP
+from parcelas.parcelas import ParcelasOOP
 
-# la clase parcela 
+# Inicializamos la clase
 parcela = ParcelasOOP()
 
-# Creacion del diccionario 
-datos_nueva_parcela = {
-    'nombre': 'Parcela Norte',
-    'propietario': 'Aserradero Wilson',
-    'area_ha': 100.5,
-    'tipo_bosque': 'Pino y Eucalipto',
-    'estado_legal': 'Concesion',
-    'perimetro': 1500.5,
-    'geom': 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))'
+# 1. INSERTAR
+datos_nueva = {
+    'nombre': 'Parcela de Prueba Forestal',
+    'propietario': 'Aserradero y depósito Wilson',
+    'area_ha': 45.5,
+    'tipo_bosque': 'Pino',
+    'estado_legal': 'Propio',
+    'perimetro': 950.0,
+    'geom': 'POLYGON((2000 2000, 2010 2000, 2010 2010, 2000 2010, 2000 2000))'
 }
-
-print("insert ")
-resultado_insert = parcela.insert(datos_nueva_parcela)
+resultado_insert = parcela.insert(datos_nueva)
 print(resultado_insert)
 
-# si el insert funciona con siguiente paso el ID nuevo 
+# seguimos con el mismo Id 
 if resultado_insert['ok']:
     nuevo_id = resultado_insert['data'][0]['id']
     
-    print("\n-Intentando seleccionar -")
-    datos_buscar = {'id': nuevo_id}
-    print(parcela.selectAsDicts(datos_buscar))
+    # SELECCIONAR (LEER)
+    print("\n- LA PARCELA INSERTADA(select) ")
+    print(parcela.selectAsDicts({'id': nuevo_id}))
+    
+    # ACTUALIZAR
+    print("\n-ACTUALIZANDOO...-")
+    datos_actualizar = {
+        'id': nuevo_id,
+        'nombre': 'Parcela de Prueba ACTUALIZADA',
+        'propietario': 'Aserradero y depósito Wilson',
+        'area_ha': 50.0,
+        'tipo_bosque': 'Eucalipto',
+        'estado_legal': 'Propio',
+        'perimetro': 1200.0,      
+        'geom': 'POLYGON((2000 2000, 2010 2000, 2010 2010, 2000 2010, 2000 2000))'
+    }
+    print(parcela.update(datos_actualizar))
+    
+    # 4. BORRAR
+    print("\n-Delete(Borrando parcela insertada-)")
+    print(parcela.delete({'id': nuevo_id}))
+
     
