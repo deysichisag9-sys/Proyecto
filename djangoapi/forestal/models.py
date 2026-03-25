@@ -18,6 +18,7 @@ class Buildings(models.Model):
                 self.perimeter = self.geom.length
             
             super().save(*args, **kwargs)
+            
 
  #Moleds Forestry 
 class Parcelas(models.Model):
@@ -26,7 +27,7 @@ class Parcelas(models.Model):
     area_ha = models.FloatField()
     tipo_bosque = models.CharField(max_length=100)
     estado_legal = models.CharField(max_length=50)
-    # Usamos gis_models como lo hace el profesor
+    # Usamos gis_modls
     geom = gis_models.PolygonField(srid=25830) 
 
     class Meta:
