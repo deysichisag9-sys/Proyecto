@@ -19,6 +19,7 @@ datos_nueva_parcela = {
     'area_ha': 75.0,
     'tipo_bosque': 'Eucalipto',
     'estado_legal': 'Propio',
+    'perimetro': 1200.5,
     'geom': 'POLYGON((20 0, 30 0, 30 10, 20 10, 20 0))' # Un polígono nuevo que no se intersect 
 }
 

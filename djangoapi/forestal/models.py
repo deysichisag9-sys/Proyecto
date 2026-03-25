@@ -26,6 +26,7 @@ class Parcelas(models.Model):
     propietario = models.CharField(max_length=100)
     area_ha = models.FloatField()
     tipo_bosque = models.CharField(max_length=100)
+    perimetro = models.FloatField(null=True, blank=True)
     estado_legal = models.CharField(max_length=50)
     # Usamos gis_modls
     geom = gis_models.PolygonField(srid=25830) 
@@ -53,6 +54,7 @@ class Caminos(models.Model):
     ancho_m = models.FloatField()
     estado_mantenimiento = models.CharField(max_length=50)
     pendiente_max_pct = models.FloatField()
+    longitud = models.FloatField(null=True, blank=True)
     geom = gis_models.LineStringField(srid=25830)
 
     class Meta:
