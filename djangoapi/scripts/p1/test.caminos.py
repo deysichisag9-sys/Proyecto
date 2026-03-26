@@ -9,7 +9,7 @@ datos_nuevo_camino = {
     'estado_mantenimiento': 'Bueno',
     'pendiente_max_pct': 12.0,
     'longitud': 1020.2,
-    'geom': 'LINESTRING(1000 1000, 1500 1500, 2000 2000)' # línea que cruza el mapa
+    'geom': 'LINESTRING(1000 1000, 1500 1500, 2000 2000)' # 
 }
 
 
@@ -28,7 +28,7 @@ if resultado_insert['ok']:
     datos_actualizar = {
         'id': nuevo_id,
         'nombre': 'Vía Principal Maderera (Ampliación)',
-        'tipo_superficie': 'Ripio', 
+        'tipo_superficie': 'examen ', 
         'ancho_m': 8.0,             
         'estado_mantenimiento': 'Excelente',
         'pendiente_max_pct': 12.0,
