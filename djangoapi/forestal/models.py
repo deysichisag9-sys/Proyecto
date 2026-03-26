@@ -19,8 +19,8 @@ class Buildings(models.Model):
             
             super().save(*args, **kwargs)
             
+#Moleds Forestry 
 
- #Moleds Forestry 
 class Parcelas(models.Model):
     nombre = models.CharField(max_length=100)
     propietario = models.CharField(max_length=100)
@@ -59,4 +59,4 @@ class Caminos(models.Model):
 
     class Meta:
         db_table = '"d"."caminos"'
-        managed = False         
+        managed = False      

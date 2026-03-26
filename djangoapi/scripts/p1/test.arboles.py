@@ -32,5 +32,7 @@ if resultado_insert['ok']:
     }
     print(arbol.update(datos_actualizar))
     
-    #print("\n-DELETE (Eliminado)")
-    #print(arbol.delete({'id': nuevo_id}))
+    print("\n-DELETE (Eliminado)")
+    print(arbol.delete({'id': nuevo_id}))
+    
+    

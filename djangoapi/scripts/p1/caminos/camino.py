@@ -27,11 +27,14 @@ class Caminos:
         values = [d['nombre'], d['tipo_superficie'], d['ancho_m'], d['estado_mantenimiento'], d['pendiente_max_pct'], d['longitud'], geom_snapped, p1Settings.EPSG_CODE]
         db.query(cons, values)
         
+        # --- AQUÍ GUARDAMOS LOS CAMBIOS ---
+        db.conn.commit()
+        
         new_id = db.result[0]['id']
         db.disconnect()
         return {'ok': True, 'message': 'Data inserted', 'data': [{'id': new_id}]}
 
-#actualizar 
+    #actualizar 
     def update(self, d: dict):
         db = Db()
         db.query("SELECT ST_AsText(ST_SnapToGrid(ST_GeomFromText(%s, %s), 0.0001)) AS geom_snapped", [d['geom'], p1Settings.EPSG_CODE])
@@ -42,30 +45,40 @@ class Caminos:
             db.disconnect()
             return {'ok': False, 'message': 'Geometria de linea invalida', 'data': None}
             
+        # --- SE AGREGÓ 'longitud' AQUÍ ---
         cons = """
             UPDATE d.caminos 
-            SET nombre=%s, tipo_superficie=%s, ancho_m=%s, estado_mantenimiento=%s, pendiente_max_pct=%s, geom=ST_GeomFromText(%s, %s)
+            SET nombre=%s, tipo_superficie=%s, ancho_m=%s, estado_mantenimiento=%s, pendiente_max_pct=%s, longitud=%s, geom=ST_GeomFromText(%s, %s)
             WHERE id=%s
         """
-        values = [d['nombre'], d['tipo_superficie'], d['ancho_m'], d['estado_mantenimiento'], d['pendiente_max_pct'], geom_snapped, p1Settings.EPSG_CODE, d['id']]
+        values = [d['nombre'], d['tipo_superficie'], d['ancho_m'], d['estado_mantenimiento'], d['pendiente_max_pct'], d['longitud'], geom_snapped, p1Settings.EPSG_CODE, d['id']]
         db.query(cons, values)
+        
+        # --- AQUÍ GUARDAMOS LOS CAMBIOS ---
+        db.conn.commit()
         
         filas_actualizadas = db.result
         db.disconnect()
         return {'ok': True, 'message': 'Data updated', 'data': [{'rows_updated': filas_actualizadas}]}
-#elimianr 
+
+    #elimianr 
     def delete(self, d: dict):
         db = Db()
         cons = "DELETE FROM d.caminos WHERE id = %s"
         db.query(cons, [d['id']])
+        
+        # --- AQUÍ GUARDAMOS LOS CAMBIOS ---
+        db.conn.commit()
+        
         filas_borradas = db.result
         db.disconnect()
         return {'ok': True, 'message': 'Data deleted', 'data': [{'rows_deleted': filas_borradas}]}
 
     def selectAsDicts(self, d: dict):
         db = Db(getRowsAsDicts=True)
+        # --- SE AGREGÓ 'longitud' EN EL SELECT ---
         cons = """
-            SELECT id, nombre, tipo_superficie, ancho_m, estado_mantenimiento, pendiente_max_pct, ST_AsText(geom) as geom 
+            SELECT id, nombre, tipo_superficie, ancho_m, estado_mantenimiento, pendiente_max_pct, longitud, ST_AsText(geom) as geom 
             FROM d.caminos 
             WHERE id = %s
         """

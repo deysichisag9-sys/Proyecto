@@ -33,6 +33,9 @@ class ParcelasOOP:
         """
         values = [d['nombre'], d['propietario'], d['area_ha'], d['tipo_bosque'], d['estado_legal'], d['perimetro'],geom_snapped]
         db.query(cons, values)
+
+        # Confirmar los cambios en la BD
+        db.conn.commit()
         
         new_id = db.result[0]['id']
         db.disconnect()
@@ -66,6 +69,8 @@ class ParcelasOOP:
         values = [d['nombre'], d['propietario'], d['area_ha'], d['tipo_bosque'], d['estado_legal'], d['perimetro'], geom_snapped, p1Settings.EPSG_CODE, d['id']]
         db.query(cons, values)
 
+        # Confirmar los cambios en la BD
+        db.conn.commit()
         
         # Utilizacion de rows_updated (inf guardada)
         filas_actualizadas = db.result
@@ -77,6 +82,9 @@ class ParcelasOOP:
         cons = "DELETE FROM d.parcelas WHERE id = %s"
         db.query(cons, [d['id']])
         
+        # Confirmar los cambios en la BD
+        db.conn.commit()
+
         # Informacion eliminada rows_deleted
         filas_borradas = db.result
         db.disconnect()

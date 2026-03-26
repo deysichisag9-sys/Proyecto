@@ -37,10 +37,14 @@ class Arboles:
         values = [d['especie'], d['diametro_cm'], d['altura_m'], d['volumen_m3'], d['calidad_madera'], geom_snapped, p1Settings.EPSG_CODE]
         db.query(cons, values)
         
+        # --- AQUÍ GUARDAMOS LOS CAMBIOS ---
+        db.conn.commit()
+        
         new_id = db.result[0]['id'] #nuevo id 
         db.disconnect()
         return {'ok': True, 'message': 'Arbol insertado correctamente', 'data': [{'id': new_id}]}
-#actualizar
+
+    #actualizar
     def update(self, d: dict):
         db = Db()
         db.query("SELECT ST_AsText(ST_SnapToGrid(ST_GeomFromText(%s, %s), 0.0001)) AS geom_snapped", [d['geom'], p1Settings.EPSG_CODE])
@@ -65,14 +69,22 @@ class Arboles:
         values = [d['especie'], d['diametro_cm'], d['altura_m'], d['volumen_m3'], d['calidad_madera'], geom_snapped, p1Settings.EPSG_CODE, d['id']]
         db.query(cons, values)
         
+        # --- AQUÍ GUARDAMOS LOS CAMBIOS ---
+        db.conn.commit()
+        
         filas_actualizadas = db.result
         db.disconnect()
         return {'ok': True, 'message': 'Data updated', 'data': [{'rows_updated': filas_actualizadas}]}
-# eliminar 
+
+    # eliminar 
     def delete(self, d: dict):
         db = Db()
         cons = "DELETE FROM d.arboles WHERE id = %s"
         db.query(cons, [d['id']])
+        
+        # --- AQUÍ GUARDAMOS LOS CAMBIOS ---
+        db.conn.commit()
+        
         filas_borradas = db.result
         db.disconnect()
         return {'ok': True, 'message': 'Data deleted', 'data': [{'rows_deleted': filas_borradas}]}
@@ -90,3 +102,4 @@ class Arboles:
         if len(data) == 0:
             return {'ok': False, 'message': 'No data found', 'data': None}
         return {'ok': True, 'message': 'Data retrieved', 'data': data}
+    
