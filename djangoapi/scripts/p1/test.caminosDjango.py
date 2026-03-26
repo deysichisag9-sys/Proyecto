@@ -43,5 +43,5 @@ if resultado['ok']:
     }
     print(camino_django.update(datos_actualizar_dj))
     
-    print("\n- DELETE CAMINO -")
-    print(camino_django.delete({'id': nuevo_id_dj}))
+    #print("\n- DELETE CAMINO -")
+    #print(camino_django.delete({'id': nuevo_id_dj}))

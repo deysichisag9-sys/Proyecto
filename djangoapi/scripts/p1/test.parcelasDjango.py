@@ -4,7 +4,7 @@ from parcelas.parcelasDjango import ParcelasDjango
 parcela_django = ParcelasDjango()
 
 # 1. INSERT
-print("--- 1. INSERTANDO CON DJANGO ---")
+print("-INSERT")
 datos_nueva_django = {
     'nombre': 'Parcela Django Forestal',
     'propietario': 'Aserradero y depósito Wilson',
@@ -20,11 +20,11 @@ print(resultado_insert_dj)
 if resultado_insert_dj['ok']:
     nuevo_id_dj = resultado_insert_dj['data'][0]['id']
     
-    # 2. SELECCIONAR
+    #  SELECCIONAR
     print("\n-leyendo-")
     print(parcela_django.selectAsDicts({'id': nuevo_id_dj}))
     
-    # 3. ACTUALIZAR
+    # ACTUALIZAR
     print("\n-ACTUALIZANDOOOO......-")
     datos_actualizar_dj = {
         'id': nuevo_id_dj,
@@ -38,7 +38,7 @@ if resultado_insert_dj['ok']:
     }
     print(parcela_django.update(datos_actualizar_dj))
     
-    # 4. BORRAR
+    # Delte
     print("\n- ELIMINANDO- ")
     print(parcela_django.delete({'id': nuevo_id_dj}))
 

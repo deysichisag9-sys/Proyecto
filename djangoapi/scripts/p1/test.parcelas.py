@@ -39,7 +39,7 @@ if resultado_insert['ok']:
     print(parcela.update(datos_actualizar))
     
     # 4. BORRAR
-    print("\n-Delete(Borrando parcela insertada-)")
-    print(parcela.delete({'id': nuevo_id}))
+    #print("\n-Delete(Borrando parcela insertada-)")
+    #print(parcela.delete({'id': nuevo_id}))
 
     

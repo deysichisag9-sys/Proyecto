@@ -38,6 +38,6 @@ if resultado_insert['ok']:
     print(camino.update(datos_actualizar))
     
     # BORRAR
-    print("\n-DELETE-")
-    print(camino.delete({'id': nuevo_id}))
+    #print("\n-DELETE-")
+    #print(camino.delete({'id': nuevo_id}))
     
