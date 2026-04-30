@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class Buildings2Config(AppConfig):
+class ForestalConfig(AppConfig):
     name = 'forestal'
 
 
