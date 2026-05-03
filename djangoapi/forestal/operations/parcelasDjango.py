@@ -1,8 +1,8 @@
 from django.contrib.gis.geos import GEOSGeometry
 from django.db import connection
+from django.forms.models import model_to_dict
 from forestal.models import Parcelas
 from scripts.p1.myLib import p1Settings
-from django.forms.models import model_to_dict
 
 
 class ParcelasDjango:
