@@ -41,5 +41,5 @@ urlpatterns = [
     path('buildings/', include('buildings.urls')),
     path('flowers/', include('flowers.urls')),
     path('accidentes/', include('accidentes.urls')),
-    path('api/forestal/', include('forestal.urls')),
+    path('forestal/', include('forestal.urls')),
 ]
