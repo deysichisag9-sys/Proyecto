@@ -134,7 +134,7 @@ if MODE_TEST:
     DATABASE_NAME = 'test_'+ os.getenv('POSTGRES_DB')
     print(f'Base de datos en modo test: {DATABASE_NAME}')
 else:
-    DATABASE_NAME = 'desarrolloweb'
+    DATABASE_NAME = os.getenv('POSTGRES_DB')
 
 DATABASES = {
     'default': {
