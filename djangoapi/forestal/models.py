@@ -34,7 +34,7 @@ class Parcelas(models.Model):
     class Meta:
         db_table = 'parcelas' # Se señala  a la tabla en el esquema d
         # es para djgano no cree la tabla, por que ya existe. 
-        managed = False 
+        #managed = False 
 
 class Arboles(models.Model):
     especie = models.CharField(max_length=100)
@@ -46,7 +46,7 @@ class Arboles(models.Model):
 
     class Meta:
         db_table = 'arboles'
-        managed = False
+        #managed = False
 
 class Caminos(models.Model):
     nombre = models.CharField(max_length=100)
@@ -59,4 +59,4 @@ class Caminos(models.Model):
 
     class Meta:
         db_table = 'caminos'
-        managed = False      
+        #managed = False      
