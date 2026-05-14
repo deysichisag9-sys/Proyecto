@@ -32,7 +32,7 @@ class Parcelas(models.Model):
     geom = gis_models.PolygonField(srid=25830) 
 
     class Meta:
-        db_table = '"d"."parcelas"' # Se señala  a la tabla en el esquema d
+        db_table = 'd"."parcelas' # Se señala  a la tabla en el esquema d
         # es para djgano no cree la tabla, por que ya existe. 
         managed = False 
 
@@ -45,7 +45,7 @@ class Arboles(models.Model):
     geom = gis_models.PointField(srid=25830)
 
     class Meta:
-        db_table = '"d"."arboles"'
+        db_table = 'd"."arboles'
         managed = False
 
 class Caminos(models.Model):
@@ -58,5 +58,5 @@ class Caminos(models.Model):
     geom = gis_models.LineStringField(srid=25830)
 
     class Meta:
-        db_table = '"d"."caminos"'
+        db_table = 'd"."caminos'
         managed = False      
