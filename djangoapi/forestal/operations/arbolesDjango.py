@@ -43,7 +43,7 @@ class ArbolesDjango:
             return {'ok': False, 'message': 'Invalid geometry', 'data': None}
             
         # Al mover el arbol debe caer dentro de una parcela
-        query_within = "SELECT id FROM d.parcelas WHERE ST_Within(ST_GeomFromText(%s, %s), geom)"
+        query_within = "SELECT id FROM parcelas WHERE ST_Within(ST_GeomFromText(%s, %s), geom)"
         cur.execute(query_within, [snapped_wkt_geometry, p1Settings.EPSG_CODE])
         if len(cur.fetchall()) == 0:
             return {'ok': False, 'message': 'arbol rechazado, quedo fuera de la parcela', 'data': None}

@@ -21,7 +21,7 @@ class ParcelasDjango:
             return {'ok': False, 'message': 'Invalid geometry', 'data': None}
             
         #  comprobaccion de las  interseccion 
-        query_intersect = "SELECT id FROM d.parcelas WHERE ST_Intersects(geom, ST_GeomFromText(%s, %s))"
+        query_intersect = "SELECT id FROM parcelas WHERE ST_Intersects(geom, ST_GeomFromText(%s, %s))"
         cur.execute(query_intersect, [snapped_wkt_geometry, p1Settings.EPSG_CODE])
         if len(cur.fetchall()) > 0:
             return {'ok': False, 'message': 'existe interseccion con el poligono', 'data': None}
